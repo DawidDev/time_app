@@ -1,6 +1,13 @@
 import React, {useState} from 'react';
 
+// Importowanie przycisków (wybieranie timera)
 import TimersBar from '../Components/TimersBar';
+
+// Import czasomierzy
+import Stopwatch from '../Components/Stopwatch';
+import Timer from '../Components/Timer';
+import Alarm from '../Components/Alarm';
+import MoreTime from '../Components/MoreTime';
 
 const BodyApp = () => {
 
@@ -13,10 +20,14 @@ const BodyApp = () => {
     const displayContent = (key) => {
         switch (key) {
             case 'stopwatch':
-                return;
+                return <Stopwatch />;
             case 'timer':
-                console.log("Renderuje timer")
-                break;
+                return <Timer/>
+            case 'alarm':
+                return <Alarm/>
+            case 'more_time':
+                return <MoreTime/>
+                    
             default:
                 break;
         }
