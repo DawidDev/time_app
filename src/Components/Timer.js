@@ -3,17 +3,25 @@ import React, {useEffect, useState} from 'react';
 
 const Timer = () => {
 
-    const [flag, setFlag] = useState(false);
+    // Odczyt ciasteczka
+    const restoreDateCookie = document.cookie.split('/');
+    const [isCookies, setIsCookies] = useState(restoreDateCookie[restoreDateCookie.length-1] === "true" ? true : false)
+    const q = restoreDateCookie.length;
 
+    // Zmienne główne do obsługi aplikacji
+    const [flag, setFlag] = useState(false);
+    
     const [timeNowForm, setTimeNowForm] = useState(new Date())
     
-    const [year, setYear] = useState(timeNowForm.getFullYear());
-    const [month, setMonth] = useState(timeNowForm.getMonth() + 1);
-    const [day, setDay] = useState(timeNowForm.getDate());
-    const [hour, setHour] = useState(timeNowForm.getHours());
-    const [minutes, setMinutes] = useState(timeNowForm.getMinutes());
-    const [seconds, setSeconds] = useState(0);
+    const [year, setYear] = useState(isCookies ? restoreDateCookie[q-7] : timeNowForm.getFullYear());
+    const [month, setMonth] = useState(isCookies ? restoreDateCookie[q-6] : timeNowForm.getMonth() + 1);
+    const [day, setDay] = useState(isCookies ? restoreDateCookie[q-5] : timeNowForm.getDate());
+    const [hour, setHour] = useState(isCookies ? restoreDateCookie[q-4] : timeNowForm.getHours());
+    const [minutes, setMinutes] = useState(isCookies ? restoreDateCookie[q-3] : timeNowForm.getMinutes());
+    const [seconds, setSeconds] = useState(isCookies ? restoreDateCookie[q-2] : 0);
 
+
+    // Obliczanie ilości dni w miesiacu, czyli ostatniego dnia miesiąca
     const daysInMonth =  (month, year) => {
         return new Date(year, month, 0).getDate();
     }
@@ -93,6 +101,11 @@ const Timer = () => {
     // Funkcja obsługująca odliczanie. Decyduje czy podano poprawną datę czy nie.
     const handleTimer = () => {
         if(!timeDiff.endTime) setFlag(prevValue => !prevValue)
+        
+        // Usuwanie ciasteczka w momencie tylko gdy użytkownik zatrzyma odliczanie
+        if(flag) {
+            document.cookie = "timerCookie=; SameSite=None; secure; max-age=-1;"
+        }
     }
 
 
@@ -106,7 +119,16 @@ const Timer = () => {
         </>
     )
 
-    const timeDiff = timeDifference(year, month, day, hour, minutes, seconds);
+    let timeDiff = timeDifference(year, month, day, hour, minutes, seconds);
+
+
+    // Tworzenie ciasteczka gdy: nie istnieje && gdy rozpoczniemy odliczanie    
+    if(isCookies === false && flag === true){
+        document.cookie = `timerCookie = /${year}/${month}/${day}/${hour}/${minutes}/${seconds}/true; SameSite=None; secure`
+    }
+
+    // Sprawdzenie co zawiera ciasteczko aktualnie
+    //console.log(restoreDateCookie)
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -120,7 +142,7 @@ const Timer = () => {
         <>
             {flag ? null : form}
             {timeDiff.endTime ? "Podaj prawidłową datę" : (flag ? showTime(timeDiff) : null)}
-            <button onClick={handleTimer}>{flag === false ? "Rozpocznij odliczanie" : "Stop"}</button>
+            {!timeDiff.endTime ? <button onClick={handleTimer}>{flag === false ? "Rozpocznij odliczanie" : "Stop"}</button> : null}
         </>
      );
 }
