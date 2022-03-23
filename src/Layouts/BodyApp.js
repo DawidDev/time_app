@@ -12,6 +12,7 @@ import MoreTime from '../Components/MoreTime';
 // Import kontekstu
 import { AppContext, defaultObject } from "../AppContext";
 
+
 const BodyApp = () => {
 
     const [timeContent, setTimeContent] = useState('stopwatch');
@@ -42,7 +43,7 @@ const BodyApp = () => {
     return ( 
         <>
             <AppContext.Provider value={({ theme, setTheme})}>
-                <TimersBar handler={handleTimeContent}/>
+                <TimersBar activeButton={timeContent} handler={handleTimeContent}/>
                 {displayContent(timeContent)}
             </AppContext.Provider>
         </>
