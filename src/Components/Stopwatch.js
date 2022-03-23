@@ -1,4 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+
+// Import kontektstu
+import { AppContext } from "../AppContext";
 
 const Stopwatch = () => {
 
@@ -7,6 +10,9 @@ const Stopwatch = () => {
     const [minutes, setMinutes] = useState(0);
     const [hours, setHours] = useState(0)
     const [laps, setLaps] = useState([]) 
+
+    // Obsługa motywu z kontekstu
+    const {theme} = useContext(AppContext);
 
     useEffect(() => {
         const stopwatch = setTimeout(() => {

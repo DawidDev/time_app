@@ -1,3 +1,7 @@
 import { createContext } from 'react';
 
-export const AppContext = createContext();
+export const defaultObject = {
+    theme: "dark"
+}
+
+export const AppContext = createContext(defaultObject);
