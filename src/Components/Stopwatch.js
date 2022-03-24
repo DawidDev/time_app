@@ -1,7 +1,29 @@
 import React, {useContext, useEffect, useState} from 'react';
+import styled from "styled-components";
 
 // Import kontektstu
 import { AppContext } from "../AppContext";
+
+// Stylowanie komponentu StopWatch
+const Container = styled.div`
+    border: 1px solid blue;
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+`
+
+const Buttons = styled.div`
+    border: 1px solid red;
+    display: block;
+`
+
+const StopWatch = styled.div`
+    border: 1px solid green;
+`
+
 
 const Stopwatch = () => {
 
@@ -68,13 +90,15 @@ const Stopwatch = () => {
     
 
     return ( 
-        <div>
-            {displayStopwatch}
-            <button onClick={() => { setFlag(prevValue => !prevValue)}}>{flag ? 'Stop' : 'Start'}</button>
-            <button onClick={resetStopwatch.bind(this)}>Reset</button>
-            <button onClick={handleSaveTime.bind(this)}>Save time</button>
+        <Container>
+            <StopWatch>{displayStopwatch}</StopWatch>
+            <Buttons>
+                <button onClick={() => { setFlag(prevValue => !prevValue)}}>{flag ? 'Stop' : 'Start'}</button>
+                <button onClick={resetStopwatch.bind(this)}>Reset</button>
+                <button onClick={handleSaveTime.bind(this)}>Save time</button>
+            </Buttons>
             {displayLaps}
-        </div>
+        </Container>
      );
 }
  
