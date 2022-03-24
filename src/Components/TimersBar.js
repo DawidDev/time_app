@@ -11,10 +11,12 @@ const Container = styled.div`
 
 const Button = styled.button`
     padding: 5px 15px;
-    outline: none;
+    outline: ${props => props.active? "1.5px solid black" : "1.5px solid transparent"};
+    font-size: 1rem;
+    background-color: transparent;
     border: 0;
     border-radius: 10px;
-    color: ${props => props.active ? "blue" : "none"};
+    color: ${props => props.active ? "black" : "black"};
     transition: .25s;
 
     &:hover {
