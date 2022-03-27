@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+
 import styled from "styled-components";
 
 // Import kontektstu
@@ -6,8 +7,6 @@ import { AppContext } from "../AppContext";
 
 // Stylowanie komponentu StopWatch
 const Container = styled.div`
-    border: 1px solid blue;
-
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -16,12 +15,30 @@ const Container = styled.div`
 `
 
 const Buttons = styled.div`
-    border: 1px solid red;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;    
+
+    button {
+        font-size: 1.5rem;
+        margin: 0 20px;
+        border-radius: 25px;
+        outline: none;
+        border: none;
+        padding: 10px 20px;
+        margin: 10px;
+        width: 300px;
+        transition: 0.1s;
+    }
+
+    .start_stop {
+       background-color:  ${props => props.value? " #5AC994" : " #dedede"};
+    }
 `
 
 const StopWatch = styled.div`
-    border: 1px solid green;
+    font-size: 5rem;
+    margin: 10vh 0;
 `
 
 
@@ -74,16 +91,16 @@ const Stopwatch = () => {
 
     const displayStopwatch = (
         <span>
-            {hours <= 9 ? `0${hours}` : hours}:
-            {minutes <= 9 ? `0${minutes}` : minutes}:
-            {seconds <= 9 ? `0${seconds}` : seconds }:
+            {hours > 0 ? (`${hours}:`) : "" /* Wyświetlanie dopiero gdy jest większe od 0 */} 
+            {minutes > 0 || hours > 0 ? (minutes <= 9 && hours >0 ? `0${minutes}:` : `${minutes}:`) : ""}
+            {seconds <= 9 ? `0${seconds}` : seconds }
         </span>
     )
     
     const displayLaps = (
         laps.map(item => (
             <p key={item.id}>
-                {item.timeHour}:{item.timeMin}:{item.timeSec}
+                {item.id+1} lap: {item.timeHour}:{item.timeMin}:{item.timeSec}
             </p>
         ))
     )
@@ -92,8 +109,8 @@ const Stopwatch = () => {
     return ( 
         <Container>
             <StopWatch>{displayStopwatch}</StopWatch>
-            <Buttons>
-                <button onClick={() => { setFlag(prevValue => !prevValue)}}>{flag ? 'Stop' : 'Start'}</button>
+            <Buttons value={flag}>
+                <button className='start_stop' onClick={() => { setFlag(prevValue => !prevValue)}}>{flag ? 'Stop' : 'Start'}</button>
                 <button onClick={resetStopwatch.bind(this)}>Reset</button>
                 <button onClick={handleSaveTime.bind(this)}>Save time</button>
             </Buttons>
