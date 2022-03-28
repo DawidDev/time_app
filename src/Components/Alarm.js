@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 
 import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
 
 const Container = styled.div`
     width: 100%;
@@ -11,7 +12,7 @@ const Container = styled.div`
     text-align: center;
     overflow: hidden;
 
-    button {
+    .btn_start {
         width: 150px;
         margin: 20px auto;
         font-size: 1.5rem;
@@ -25,14 +26,15 @@ const Container = styled.div`
 const ProgressCircleBox = styled.div`
     margin: 0 auto;
     position: relative;
-    height: 400px;
+    height: 350px;
+    width: 350px;
 
     p {
         position: absolute;
-        top: 80%;
+        top: 70%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 1.5rem;
+        font-size: 20px;
     }
 `
 
@@ -42,7 +44,7 @@ const RemaningTimeBox = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 5rem;
+    font-size: 70px;
 
     span {
         position: absolute;
@@ -55,22 +57,48 @@ const RemaningTimeBox = styled.div`
 
 const Form = styled.div`
    width: 100%;
-   height: 400px;
+   //height: 400px;
+   padding: 50px 0;
    display: flex;
-   flex-direction: column;
-   box-sizing: border-box;
-   padding: 50px;
+   justify-content: center;
 
+   .handle_Time_Box {
+       width: 80px;
+       display: flex;
+       flex-wrap: wrap-reverse;
+       justify-content: center;
+       align-items: center;
+   }
 
    input {
-       margin: 20px auto;
-       height: 2.5rem;
-       width: 20rem;
+       margin: 10px auto;
+       height: 70px;
+       width: 70px;
+       text-align: center;
+       font-size: 30px;
    }
+
+   button {
+        font-size: 40px;
+        width: 70px;
+        height: 50px;
+   }
+
+   // Ukrywanie strzałek pola input
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+    -moz-appearance: textfield;
+    }
+    
 `
-
+ 
 const Alarm = () => {
-
     const [flag, setFlag] = useState(false)
 
     const [hours, setHours] = useState(0);
@@ -80,7 +108,6 @@ const Alarm = () => {
     const [progress, setProgress] = useState(0);
 
     const [secondsStart, setSecondsStart] = useState(0)
-     //console.log(secondsStart)
                 
     const handleTime = (e) => {
         // Obsługa ustawiania wartości w formularzu
@@ -89,13 +116,14 @@ const Alarm = () => {
 
         switch (nameValue) {
             case "hours":
-                setHours(value)
+                value < 101 ? setHours(value) : setHours(60)
+                console.log("działam")
                 break;
             case "minutes":
-                setMinutes(value)
+                value < 60 ? setMinutes(value) : setMinutes(59)
                 break;
             case "seconds":
-                setSeconds(value)
+                value < 60 ? setSeconds(value) : setSeconds(59)
                 break;
             default:
                 break;
@@ -136,12 +164,43 @@ const Alarm = () => {
         setSecondsStart(((hours*60*60) + (minutes*60) + seconds))
         setFlag(prevValue => !prevValue)
     }
+
+    const handleTimeButtons = (nameParametr, typeOperation) => {
+        switch (nameParametr) {
+            case 'hours':
+                if(typeOperation === '-' && hours > 0) setHours(prevValue => (prevValue*1) -1)
+                else if(typeOperation === '+' && hours < 100) setHours(prevValue => (prevValue*1) +1)
+                break;
+            case 'minutes':
+                if(typeOperation === '-' && minutes > 0) setMinutes(prevValue => (prevValue*1) -1)
+                else if(typeOperation === '+' && minutes < 59) setMinutes(prevValue => (prevValue*1) +1)
+                break;
+            case 'seconds':
+                if(typeOperation === '-' && seconds > 0) setSeconds(prevValue => (prevValue*1) -1)
+                else if(typeOperation === '+' && seconds < 59) setSeconds(prevValue => (prevValue*1) +1)
+                break;
+            default:
+                break;
+        }
+    }
     
     const form = (
         <Form>
-            <input type='number' min="0" name="hours" value={hours} onChange={handleTime} />
-            <input type='number' min="0" name="minutes" value={minutes} onChange={handleTime} />
-            <input type='number' min="0" name="seconds" value={seconds} onChange={handleTime} />
+            <div className='handle_Time_Box'>
+                <Button onClick={handleTimeButtons.bind(this, 'hours', '-')}>-</Button>
+                    <input type='number' min="0" max="60" name="hours" value={hours} onChange={handleTime} />
+                <Button onClick={handleTimeButtons.bind(this, 'hours', '+')}>+</Button>
+            </div>
+            <div className='handle_Time_Box'>
+                <Button onClick={handleTimeButtons.bind(this, 'minutes', '-')}>-</Button>
+                    <input type='number' min="0" name="minutes" value={minutes} onChange={handleTime} />
+                <Button onClick={handleTimeButtons.bind(this, 'minutes', '+')}>+</Button>
+            </div>
+            <div className='handle_Time_Box'>
+                <Button onClick={handleTimeButtons.bind(this, 'seconds', '-')}>-</Button>
+                    <input type='number' min="0" name="seconds" value={seconds} onChange={handleTime} />
+                <Button onClick={handleTimeButtons.bind(this, 'seconds', '+')}>+</Button>
+            </div>
         </Form>
     )
 
@@ -160,9 +219,9 @@ const Alarm = () => {
                 <CircularProgress 
                 sx={{
                     color: 'black',
-                    margin: '0 auto'
+                    margin: '0 auto',
                 }}
-                size={400}
+                size={350}
                 thickness={0.6}
                 variant="determinate" value={progress} />
                 <CircularProgress 
@@ -173,7 +232,7 @@ const Alarm = () => {
                     left: '0',
                     zIndex: '-1'
                 }}
-                size={400}
+                size={350}
                 thickness={0.5}
                 variant="determinate" value={100} />
             {displayRemaningTime}
@@ -192,7 +251,7 @@ const Alarm = () => {
     return ( 
         <Container>  
             {flag ? progressBox : form}
-            <button onClick={startFunction }>{flag ? "Stop" : "Start"}</button>
+            <button className='btn_start' onClick={startFunction }>{flag ? "Stop" : "Start"}</button>
         </Container>
      );
 }
