@@ -76,7 +76,7 @@ const Stopwatch = () => {
             timeMin: minutes <= 9 ? `0${minutes}` : minutes,
             timeHour: hours <= 9 ? `0${hours}` : hours,
         } 
-        setLaps([...laps, item])
+        setLaps([...laps, item].reverse()) // Odwracanie tablicy aby ostatni czas wyświetlany był jako pierwszy
     }
 
     if(seconds > 59) {
@@ -100,7 +100,7 @@ const Stopwatch = () => {
     const displayLaps = (
         laps.map(item => (
             <p key={item.id}>
-                {item.id+1} lap: {item.timeHour}:{item.timeMin}:{item.timeSec}
+                {item.id+1} czas: {item.timeHour}:{item.timeMin}:{item.timeSec}
             </p>
         ))
     )

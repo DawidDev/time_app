@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 import Button from '@mui/material/Button';
 
+import timeDifference from './TimeDifferenceCalculate';
+
 const Container = styled.div`
     width: 100%;
     display: flex;
@@ -124,7 +126,7 @@ const Timer = () => {
         return new Date(year, month, 0).getDate();
     }
 
-    const timeDifference = (year, month, day, hour, minutes, seconds ) => {
+    /*const timeDifference = (year, month, day, hour, minutes, seconds ) => {
         const timeNow = new Date()
 
         const timeTimer = new Date(year, month-1, day, hour, minutes, seconds)
@@ -157,7 +159,7 @@ const Timer = () => {
             seconds : secondsToDate,
             endTime
         }
-    }
+    }*/
 
     // Wyświetlanie odliczania
     const showTime = (timeDiff) => (
