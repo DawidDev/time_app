@@ -17,22 +17,22 @@ const ResultTimeBox = styled.div`
     width: 100%;
     margin: 0 auto;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     border-bottom: 1px solid silver;
 
     .box_time {
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
-        width: 60%;
-        margin-top: 20px;
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
     }
 
     h5 {
-        margin: 0;
+        margin: 20px 0 0 0;
         font-size: 15px;
-        align-self: flex-end;
+        align-self: center;
     }
 
      p {
