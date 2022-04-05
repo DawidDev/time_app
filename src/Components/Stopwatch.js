@@ -39,12 +39,30 @@ const Buttons = styled.div`
 const StopWatch = styled.div`
     font-size: 5rem;
     margin: 10vh 0;
+    position: relative;
+
+    .miliseconds_box {
+        font-size: 3rem;
+        margin-left: 5px;
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+    }
+`
+
+const DisplayTimes = styled.p`
+    p {
+        border-bottom: 1px solid silver;
+        margin: 10px 20%;
+        font-size: 20px;
+    }
 `
 
 
 const Stopwatch = () => {
 
     const [flag, setFlag] = useState(false)
+    const [milicesonds, setMiliseconds] = useState(0)
     const [seconds, setSeconds] = useState(0);
     const [minutes, setMinutes] = useState(0);
     const [hours, setHours] = useState(0)
@@ -55,8 +73,8 @@ const Stopwatch = () => {
 
     useEffect(() => {
         const stopwatch = setTimeout(() => {
-            if(flag) setSeconds(prevValue => prevValue +1)
-          }, 1000);
+            if(flag) setMiliseconds(prevValue => prevValue +1)
+          }, 10);
 
         return () => clearTimeout(stopwatch)
     })
@@ -65,6 +83,7 @@ const Stopwatch = () => {
         setHours(0);
         setMinutes(0);
         setSeconds(0);
+        setMiliseconds(0)
         setLaps([])
         setFlag(false);
     }
@@ -72,11 +91,18 @@ const Stopwatch = () => {
     const handleSaveTime = () => {  
         const item = {
             id: laps.length,
+            timeMiliSec: milicesonds <= 9 ? `0${milicesonds}` : milicesonds,
             timeSec: seconds <= 9 ? `0${seconds}` : seconds,
             timeMin: minutes <= 9 ? `0${minutes}` : minutes,
             timeHour: hours <= 9 ? `0${hours}` : hours,
         } 
-        setLaps([...laps, item].reverse()) // Odwracanie tablicy aby ostatni czas wyświetlany był jako pierwszy
+        //setLaps([...laps, item].reverse()) // Odwracanie tablicy aby ostatni czas wyświetlany był jako pierwszy
+        setLaps([item, ...laps])
+    }
+
+    if(milicesonds > 59) {
+        setMiliseconds(0);
+        setSeconds(prevValue => prevValue + 1);
     }
 
     if(seconds > 59) {
@@ -94,13 +120,18 @@ const Stopwatch = () => {
             {hours > 0 ? (`${hours}:`) : "" /* Wyświetlanie dopiero gdy jest większe od 0 */} 
             {minutes > 0 || hours > 0 ? (minutes <= 9 && hours >0 ? `0${minutes}:` : `${minutes}:`) : ""}
             {seconds <= 9 ? `0${seconds}` : seconds }
+            <span className='miliseconds_box'>:{milicesonds <= 9 ? `0${milicesonds}` : milicesonds }</span>
         </span>
     )
     
     const displayLaps = (
         laps.map(item => (
             <p key={item.id}>
-                {item.id+1} czas: {item.timeHour}:{item.timeMin}:{item.timeSec}
+                {item.id+1}{" czas: "}
+                {item.timeHour > 0 ? item.timeHour + `:`: null}
+                {item.timeMin > 0 ? item.timeMin + `:` : null }
+                {item.timeSec}
+                :{item.timeMiliSec}
             </p>
         ))
     )
@@ -114,7 +145,9 @@ const Stopwatch = () => {
                 <button onClick={resetStopwatch.bind(this)}>Reset</button>
                 <button onClick={handleSaveTime.bind(this)}>Save time</button>
             </Buttons>
-            {displayLaps}
+            <DisplayTimes>
+                {displayLaps}
+            </DisplayTimes>
         </Container>
      );
 }
