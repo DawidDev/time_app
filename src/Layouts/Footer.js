@@ -14,6 +14,7 @@ const Container = styled.div`
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    font-size: 12px;
 `
 
 const Footer = () => {
@@ -22,7 +23,7 @@ const Footer = () => {
 
     return ( 
         <Container theme={theme} themeObject={ThemeObject} >
-            Created by Dawid Rożak
+            Designed by Dawid Rożak
         </Container>
      );
 }
