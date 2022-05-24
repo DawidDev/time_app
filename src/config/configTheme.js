@@ -25,7 +25,7 @@ const ThemeObject = {
     },
     global: {
         colorMainButtons: "#e2e0ec", // Kolor wszystkich przycisków (notActive, notFocus,, notOnClick)
-        colorMainButtonsHover: "#84878a" // Kolor najazdu kursora na wszystkie przyciski główne
+        colorMainButtonsHover: "#" // Kolor najazdu kursora na wszystkie przyciski główne
     }
 
 }

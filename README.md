@@ -12,6 +12,7 @@ Design features:
 - React
 - Javascript
 - Styled components
+- ReactContext
 - CSS
 - Responsive Web Design
 - MUI library
