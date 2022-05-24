@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Montserrat&display=swap');
 
 
 body {
@@ -10,6 +11,10 @@ body {
 
 button {
   font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2 {
+  font-family: 'Kanit', sans-serif;
 }
 
 code {

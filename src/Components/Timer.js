@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
-
 import styled from "styled-components";
+
+// Import obiektu motywu
+import ThemeObject from "../config/configTheme";
 
 import Button from '@mui/material/Button';
 
@@ -18,11 +20,22 @@ const Container = styled.div`
         outline: none;
         border: none;
         padding: 10px 20px;
+        transition: .25s;
     }
 
     .alert_input_date {
         font-size: 20px;
     }
+
+    .btn_start {
+        background-color:  ${(props) => props.themeObject.global.colorMainButtons };
+    }
+
+    .btn_start:hover{
+        cursor: pointer;
+        background-color:  ${(props) => props.themeObject.global.colorMainButtonsHover };
+    }
+    
 `
 
 const FormBox = styled.div`
@@ -126,41 +139,6 @@ const Timer = () => {
         return new Date(year, month, 0).getDate();
     }
 
-    /*const timeDifference = (year, month, day, hour, minutes, seconds ) => {
-        const timeNow = new Date()
-
-        const timeTimer = new Date(year, month-1, day, hour, minutes, seconds)
-
-        const msInADay = 24 * 60 * 60 * 1000; //1 dzień w milisekundach
-
-        // Obliczanie różnicy czasu w ms
-        const timeDifference = timeTimer.getTime() - timeNow.getTime();
-    
-        const eDaysToDate = timeDifference / msInADay;
-        const daysToDate = Math.floor(eDaysToDate);
-        
-        let daysToDateFix = (daysToDate < 1)? 1 : daysToDate;
-
-        const eHoursToDate = (eDaysToDate % daysToDateFix)*24;
-        const hoursToDate = Math.floor(eHoursToDate);
-
-        const eMinutesToDate = (eHoursToDate - hoursToDate)*60;
-        const minutesToDate = Math.floor(eMinutesToDate);
-
-        const eSecondsToDate = Math.floor((eMinutesToDate - minutesToDate)*60);
-        const secondsToDate = Math.floor(eSecondsToDate);
-
-        const endTime = timeDifference < 0; // Czy koniec odliczania
-
-        return {
-            days : daysToDate,
-            hours : hoursToDate,
-            minutes : minutesToDate,
-            seconds : secondsToDate,
-            endTime
-        }
-    }*/
-
     // Wyświetlanie odliczania
     const showTime = (timeDiff) => (
         <DisplayTimeBox>
@@ -228,10 +206,6 @@ const Timer = () => {
         <FormBox>
             <input className='timer_date' type="date" name="calendar-date" min="2022-03-30"  onChange={handleForm}/>
             <br/>
-            {/*<input type='number' name="year" min={timeNowForm.getFullYear()} max="2999" value={year} onChange={handleForm}/>
-            <input type='number' name="month" min={year > timeNowForm.getFullYear() ? "1" : timeNowForm.getMonth()+1} max="12" value={month} onChange={handleForm}/>
-            <input type='number' name="day" min={month > timeNowForm.getMonth()+1 ? "1" : timeNowForm.getDate()} max={daysInMonth(month, year)} value={day <= daysInMonth(month, year) ? day : daysInMonth(month, year) } onChange={handleForm}/>
-            */}
             <div className='timer_hour'>
                 <div className='handle_Time_Box_Timer'>
                     <Button  name="hours" value="+" onClick={handleForm.bind(this)}>+</Button>
@@ -267,7 +241,7 @@ const Timer = () => {
     })
 
     return ( 
-        <Container>
+        <Container themeObject={ThemeObject}>
             {flag ? null : form}
             {timeDiff.endTime ? <span className='alert_input_date'>Podaj prawidłową datę</span> : (flag ? showTime(timeDiff) : null)}
             {!timeDiff.endTime ? <button className='btn_start' onClick={handleTimer}>{flag === false ? "Rozpocznij odliczanie" : "Stop"}</button> : null}
@@ -276,3 +250,39 @@ const Timer = () => {
 }
  
 export default Timer;
+
+
+    /*const timeDifference = (year, month, day, hour, minutes, seconds ) => {
+        const timeNow = new Date()
+
+        const timeTimer = new Date(year, month-1, day, hour, minutes, seconds)
+
+        const msInADay = 24 * 60 * 60 * 1000; //1 dzień w milisekundach
+
+        // Obliczanie różnicy czasu w ms
+        const timeDifference = timeTimer.getTime() - timeNow.getTime();
+    
+        const eDaysToDate = timeDifference / msInADay;
+        const daysToDate = Math.floor(eDaysToDate);
+        
+        let daysToDateFix = (daysToDate < 1)? 1 : daysToDate;
+
+        const eHoursToDate = (eDaysToDate % daysToDateFix)*24;
+        const hoursToDate = Math.floor(eHoursToDate);
+
+        const eMinutesToDate = (eHoursToDate - hoursToDate)*60;
+        const minutesToDate = Math.floor(eMinutesToDate);
+
+        const eSecondsToDate = Math.floor((eMinutesToDate - minutesToDate)*60);
+        const secondsToDate = Math.floor(eSecondsToDate);
+
+        const endTime = timeDifference < 0; // Czy koniec odliczania
+
+        return {
+            days : daysToDate,
+            hours : hoursToDate,
+            minutes : minutesToDate,
+            seconds : secondsToDate,
+            endTime
+        }
+    }*/

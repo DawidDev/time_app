@@ -1,47 +1,29 @@
-import React from 'react';
+import React from "react";
 
-import styled from 'styled-components'
-
-import clock from '../Images/clock.png'
-
+import styled from "styled-components";
 
 const LogoDiv = styled.div`
-    //border: 3px solid red;
-    overflow: hidden;
-    width: 100%;
-    max-width: 600px;
-    margin: 20px auto;
+  overflow: hidden;
+  width: 100%;
+  max-width: 600px;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    img {
-        width: 5rem;
-        float: left;
-    }
-`
-
-const LogoText = styled.div`
-    float: left;
-    margin-left: 20px;
-
-    h1, h2 {
-        margin: 0;
-        text-transform: uppercase;
-    }
-
-    h1 {
-        font-size: 40px;
-    } 
-`
+  h1 {
+    font-size: 70px;
+    letter-spacing: 30px;
+    margin: 0;
+  }
+`;
 
 const Logo = () => {
-    return ( 
-        <LogoDiv>
-        <img src={clock} alt="clock" />
-        <LogoText>
-            <h2>Your</h2>
-            <h1>Time</h1>
-        </LogoText>
-        </LogoDiv>
-     );
-}
- 
+  return (
+    <LogoDiv>
+      <h1>TIME</h1>
+    </LogoDiv>
+  );
+};
+
 export default Logo;
