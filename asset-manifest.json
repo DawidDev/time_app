@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/time_app/static/css/main.4ae9d9eb.chunk.css",
-    "main.js": "/time_app/static/js/main.c7e4d9dd.chunk.js",
-    "main.js.map": "/time_app/static/js/main.c7e4d9dd.chunk.js.map",
+    "main.js": "/time_app/static/js/main.af41cc9c.chunk.js",
+    "main.js.map": "/time_app/static/js/main.af41cc9c.chunk.js.map",
     "runtime-main.js": "/time_app/static/js/runtime-main.f0f4bc8d.js",
     "runtime-main.js.map": "/time_app/static/js/runtime-main.f0f4bc8d.js.map",
     "static/js/2.6697658c.chunk.js": "/time_app/static/js/2.6697658c.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.f0f4bc8d.js",
     "static/js/2.6697658c.chunk.js",
     "static/css/main.4ae9d9eb.chunk.css",
-    "static/js/main.c7e4d9dd.chunk.js"
+    "static/js/main.af41cc9c.chunk.js"
   ]
 }
