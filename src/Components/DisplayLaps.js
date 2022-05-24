@@ -31,11 +31,11 @@ const DisplayLaps = ({seconds, minutes, hours}) => {
         ))
     )
 
-    const btnResetSavedLapsDisplay = laps.length > 0 ? <button onClick={handleResetSavedTime.bind(this)}>Reset laps</button> : null
+    const btnResetSavedLapsDisplay = laps.length > 0 ? <button onClick={handleResetSavedTime.bind(this)}>Resetuj czasy</button> : null
 
     return(
         <>
-        <button onClick={handleSaveTime.bind(this)}>Save time</button>
+        <button onClick={handleSaveTime.bind(this)}>Zapisz czas</button>
         {displayLaps}
         {btnResetSavedLapsDisplay}
         </>

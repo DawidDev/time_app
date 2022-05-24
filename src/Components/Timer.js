@@ -254,7 +254,7 @@ const Timer = () => {
     return ( 
         <Container themeObject={ThemeObject}>
             {flag ? null : form}
-            {timeDiff.endTime ? <span className='alert_input_date'>Podaj prawidłową datę</span> : (flag ? showTime(timeDiff) : null)}
+            {timeDiff.endTime ? <span className='alert_input_date'>Podaj prawidłowy czas i datę</span> : (flag ? showTime(timeDiff) : null)}
             {!timeDiff.endTime ? <button className='btn_start' onClick={handleTimer}>{flag === false ? "Rozpocznij odliczanie" : "Stop"}</button> : null}
         </Container>
      );

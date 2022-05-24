@@ -10,9 +10,12 @@ import BodyApp from "./Layouts/BodyApp";
 import { AppContext, defaultObject } from "./AppContext";
 
 const GlobalContainer = styled.div`
+  position: relative;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: ${(props) => props.colorTheme === "dark" ? "#0d0906" : "transparent"};
+  padding-bottom: 50px;
+  background-color: ${(props) =>
+    props.colorTheme === "dark" ? "#0d0906" : "transparent"};
   transition: 0.25s;
   color: ${(props) => (props.colorTheme === "dark" ? "#fff" : "black")};
 `;
@@ -32,6 +35,7 @@ const App = () => {
       <AppContext.Provider value={{ theme, setTheme }}>
         <Header />
         <BodyApp />
+        <Footer />
       </AppContext.Provider>
     </GlobalContainer>
   );
