@@ -9,7 +9,8 @@ const ThemeObject = {
         colorCircuralProgress: "#306060",
         colorCircuralProgressBack: "#e2e0ec",
         colorBorderLineInMoreComponent: "1px solid #306060", 
-        colorBorderLineInStopwatch: "1px solid #306060"
+        colorBorderLineInStopwatch: "1px solid #306060",
+        colorButtonsPlusMinus: "#306060"
     },
     dark:{
         colorHeader: "#fff",
@@ -21,7 +22,8 @@ const ThemeObject = {
         colorCircuralProgress: "#0288D1",
         colorCircuralProgressBack: "#e2e0ec",
         colorBorderLineInMoreComponent: "1px solid #0288D1",
-        colorBorderLineInStopwatch: "1px solid #0288D1"
+        colorBorderLineInStopwatch: "1px solid #0288D1",
+        colorButtonsPlusMinus: "#0288D1"
     },
     global: {
         colorMainButtons: "#e2e0ec", // Kolor wszystkich przycisków (notActive, notFocus,, notOnClick)
@@ -31,3 +33,5 @@ const ThemeObject = {
 }
 
 export default ThemeObject
+
+

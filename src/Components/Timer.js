@@ -1,8 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import styled from "styled-components";
+
+import { AppContext } from "../AppContext";
 
 // Import obiektu motywu
 import ThemeObject from "../config/configTheme";
+
+// Import własnych styli Mui
+import theme_MUI from "../config/configMuiTheme";
+import {ThemeProvider } from '@mui/material/styles';
 
 import Button from '@mui/material/Button';
 
@@ -116,6 +122,9 @@ const DisplayTimeBox = styled.div`
 `
 const Timer = () => {
 
+     // Obsługa motywu z kontekstu
+  const { theme } = useContext(AppContext);
+
     // Odczyt ciasteczka
     const restoreDateCookie = document.cookie.split('/');
     const [isCookies, setIsCookies] = useState(restoreDateCookie[restoreDateCookie.length-1] === "true" ? true : false)
@@ -201,24 +210,26 @@ const Timer = () => {
         }
     }
 
-
+    const colorPlusMinusBtn = theme === 'light' ? "primary" : "secondary";
     const form = (
+        <ThemeProvider theme={theme_MUI}>
         <FormBox>
             <input className='timer_date' type="date" name="calendar-date" min="2022-03-30"  onChange={handleForm}/>
             <br/>
             <div className='timer_hour'>
                 <div className='handle_Time_Box_Timer'>
-                    <Button  name="hours" value="+" onClick={handleForm.bind(this)}>+</Button>
+                    <Button color={colorPlusMinusBtn} name="hours" value="+" onClick={handleForm.bind(this)}>+</Button>
                     <input readOnly="readOnly" type='number' name="hours" min={day > timeNowForm.getDate() ? "0" : timeNowForm.getHours()} max="23" value={hour} onChange={handleForm}/> 
-                    <Button  name="hours" value="-" onClick={handleForm.bind(this)}>-</Button>
+                    <Button color={colorPlusMinusBtn} name="hours" value="-" onClick={handleForm.bind(this)}>-</Button>
                 </div>
                 <div className='handle_Time_Box_Timer'>
-                    <Button  name="minutes_2" value="+" onClick={handleForm.bind(this)}>+</Button>
+                    <Button color={colorPlusMinusBtn} name="minutes_2" value="+" onClick={handleForm.bind(this)}>+</Button>
                     <input readOnly="readOnly" type='number' name="minutes_2" min={ hour > timeNowForm.getHours() ? "0" : timeNowForm.getMinutes() } max="59" value={minutes} onChange={handleForm}/> 
-                    <Button  name="minutes_2" value="-" onClick={handleForm.bind(this)}>-</Button>
+                    <Button color={colorPlusMinusBtn} name="minutes_2" value="-" onClick={handleForm.bind(this)}>-</Button>
                 </div>
             </div>
         </FormBox>
+        </ThemeProvider>
     )
 
     let timeDiff = timeDifference(year, month, day, hour, minutes, seconds);

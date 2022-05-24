@@ -10,6 +10,10 @@ import { AppContext } from "../AppContext";
 // Import obiektu motywu
 import ThemeObject from "../config/configTheme";
 
+// Import własnych styli Mui
+import theme_MUI from "../config/configMuiTheme";
+import {ThemeProvider } from '@mui/material/styles';
+
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -201,10 +205,13 @@ const Alarm = () => {
     }
   };
 
+
+  const colorPlusMinusBtn = theme === 'light' ? "primary" : "secondary";
   const form = (
     <Form>
+      <ThemeProvider theme={theme_MUI} >
       <div className="handle_Time_Box">
-        <Button onClick={handleTimeButtons.bind(this, "hours", "-")}>-</Button>
+        <Button color={colorPlusMinusBtn} onClick={handleTimeButtons.bind(this, "hours", "-")}>-</Button>
         <input
           type="number"
           min="0"
@@ -213,10 +220,10 @@ const Alarm = () => {
           value={hours}
           onChange={handleTime}
         />
-        <Button onClick={handleTimeButtons.bind(this, "hours", "+")}>+</Button>
+        <Button color={colorPlusMinusBtn} onClick={handleTimeButtons.bind(this, "hours", "+")}>+</Button>
       </div>
       <div className="handle_Time_Box">
-        <Button onClick={handleTimeButtons.bind(this, "minutes", "-")}>
+        <Button color={colorPlusMinusBtn} onClick={handleTimeButtons.bind(this, "minutes", "-")}>
           -
         </Button>
         <input
@@ -226,12 +233,12 @@ const Alarm = () => {
           value={minutes}
           onChange={handleTime}
         />
-        <Button onClick={handleTimeButtons.bind(this, "minutes", "+")}>
+        <Button color={colorPlusMinusBtn} onClick={handleTimeButtons.bind(this, "minutes", "+")}>
           +
         </Button>
       </div>
       <div className="handle_Time_Box">
-        <Button onClick={handleTimeButtons.bind(this, "seconds", "-")}>
+        <Button color={colorPlusMinusBtn} onClick={handleTimeButtons.bind(this, "seconds", "-")}>
           -
         </Button>
         <input
@@ -241,10 +248,11 @@ const Alarm = () => {
           value={seconds}
           onChange={handleTime}
         />
-        <Button onClick={handleTimeButtons.bind(this, "seconds", "+")}>
+        <Button color={colorPlusMinusBtn} onClick={handleTimeButtons.bind(this, "seconds", "+")}>
           +
         </Button>
       </div>
+      </ThemeProvider>
     </Form>
   );
 
