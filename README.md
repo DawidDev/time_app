@@ -1,4 +1,4 @@
-## Quizicky Page
+## Time app
 
 **Demo: [Time app](https://dawiddev.github.io/time_app/)** <br/>
 Application representing timing functions such as:
