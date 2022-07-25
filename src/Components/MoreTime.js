@@ -79,7 +79,9 @@ const MoreTime = () => {
     </>
   );
 
-  const toHolidays = timeDifference(year, 7, 1, 0, 0, 0);
+  let toHolidays = timeDifference(year, 7, 1, 0, 0, 0); // Domyślnie
+  if(timeNowForm.getMonth() >= 6) {toHolidays = timeDifference(year+1, 7, 1, 0, 0, 0); } // Jeśli aktualnie trwają wakacje
+
   const toEndOfTheYear = timeDifference(year + 1, 0, 0, 0, 0, 0);
   const toEndOfTheDay = timeDifference(year, month, day, 23, 59, 59);
   const toEndOfTheMonth = timeDifference(
@@ -101,7 +103,7 @@ const MoreTime = () => {
 
   return (
     <Container>
-      <ResultTimeBox theme={theme} themeObject={ThemeObject} >{showTime(toHolidays, "wakacji")}</ResultTimeBox>
+      <ResultTimeBox theme={theme} themeObject={ThemeObject} >{showTime(toHolidays, "kolejnych wakacji")}</ResultTimeBox>
       <ResultTimeBox theme={theme} themeObject={ThemeObject} >{showTime(toEndOfTheYear, "końca roku")}</ResultTimeBox>
       <ResultTimeBox theme={theme} themeObject={ThemeObject} >
         {showTime(toEndOfTheMonth, "końca miesiąca", false)}
